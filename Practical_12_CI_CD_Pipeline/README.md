@@ -1,6 +1,6 @@
 # Practical 12: CI/CD Pipeline with GitHub Actions
 
-[![CI Pipeline]()]()
+[![CI Pipeline](https://github.com/Nilay-Patel-5/ITUE301-AWDF-Practicals/actions/workflows/ci.yml/badge.svg)](https://github.com/Nilay-Patel-5/ITUE301-AWDF-Practicals/actions/workflows/ci.yml)
 
 ## 1. Practical Metadata
 - **Practical Number:** 12

@@ -745,8 +745,8 @@ exports.validateRegister = (req, res, next) => {
 
 ### GitHub Repository
 
-- **Practical Directory:** https://github.com/Nilay/ITUE301-AWDF-Practicals/tree/main/Practical_07_JWT_Authentication
-- **Repository:** https://github.com/Nilay/ITUE301-AWDF-Practicals
+- **Practical Directory:** https://github.com/Nilay-Patel-5/ITUE301-AWDF-Practicals/tree/main/Practical_07_JWT_Authentication
+- **Repository:** https://github.com/Nilay-Patel-5/ITUE301-AWDF-Practicals
 - **Branch:** main (All practical implementations committed and verified)
 
 ### Output
@@ -899,8 +899,8 @@ export default defineConfig({
 
 ### GitHub Repository
 
-- **Practical Directory:** https://github.com/Nilay/ITUE301-AWDF-Practicals/tree/main/Practical_08_Lazy_Loading
-- **Repository:** https://github.com/Nilay/ITUE301-AWDF-Practicals
+- **Practical Directory:** https://github.com/Nilay-Patel-5/ITUE301-AWDF-Practicals/tree/main/Practical_08_Lazy_Loading
+- **Repository:** https://github.com/Nilay-Patel-5/ITUE301-AWDF-Practicals
 - **Branch:** main (All practical implementations committed and verified)
 
 ### Output
@@ -1102,8 +1102,8 @@ router.post('/cache/clear', (req, res) => {
 
 ### GitHub Repository
 
-- **Practical Directory:** https://github.com/Nilay/ITUE301-AWDF-Practicals/tree/main/Practical_09_Caching
-- **Repository:** https://github.com/Nilay/ITUE301-AWDF-Practicals
+- **Practical Directory:** https://github.com/Nilay-Patel-5/ITUE301-AWDF-Practicals/tree/main/Practical_09_Caching
+- **Repository:** https://github.com/Nilay-Patel-5/ITUE301-AWDF-Practicals
 - **Branch:** main (All practical implementations committed and verified)
 
 ### Output
@@ -1316,8 +1316,8 @@ async function verifyEvents() {
 
 ### GitHub Repository
 
-- **Practical Directory:** https://github.com/Nilay/ITUE301-AWDF-Practicals/tree/main/Practical_10_EventEmitter
-- **Repository:** https://github.com/Nilay/ITUE301-AWDF-Practicals
+- **Practical Directory:** https://github.com/Nilay-Patel-5/ITUE301-AWDF-Practicals/tree/main/Practical_10_EventEmitter
+- **Repository:** https://github.com/Nilay-Patel-5/ITUE301-AWDF-Practicals
 - **Branch:** main (All practical implementations committed and verified)
 
 ### Output
@@ -1507,8 +1507,8 @@ npm-debug.log*
 
 ### GitHub Repository
 
-- **Practical Directory:** https://github.com/Nilay/ITUE301-AWDF-Practicals/tree/main/Practical_11_Docker
-- **Repository:** https://github.com/Nilay/ITUE301-AWDF-Practicals
+- **Practical Directory:** https://github.com/Nilay-Patel-5/ITUE301-AWDF-Practicals/tree/main/Practical_11_Docker
+- **Repository:** https://github.com/Nilay-Patel-5/ITUE301-AWDF-Practicals
 - **Branch:** main (All practical implementations committed and verified)
 
 ### Output
@@ -1740,8 +1740,8 @@ describe('Practical 12: Deliberately Broken Test (Failure Demonstration)', () =>
 
 ### GitHub Repository
 
-- **Practical Directory:** https://github.com/Nilay/ITUE301-AWDF-Practicals/tree/main/Practical_12_CI_CD_Pipeline
-- **Repository:** https://github.com/Nilay/ITUE301-AWDF-Practicals
+- **Practical Directory:** https://github.com/Nilay-Patel-5/ITUE301-AWDF-Practicals/tree/main/Practical_12_CI_CD_Pipeline
+- **Repository:** https://github.com/Nilay-Patel-5/ITUE301-AWDF-Practicals
 - **Branch:** main (All practical implementations committed and verified)
 
 ### Output
