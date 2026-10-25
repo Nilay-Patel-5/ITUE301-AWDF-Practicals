@@ -96,6 +96,12 @@ async function runPipeline() {
     }
   }
 
+  // Mute console logging during assertion requests so terminal output is clean
+  const originalLog = console.log;
+  const originalError = console.error;
+  console.log = () => {};
+  console.error = () => {};
+
   // 1. Connect to Database directly for verification
   let dbConnected = false;
   try {
@@ -238,9 +244,9 @@ async function runPipeline() {
   const bcryptMatch = dbUser ? await bcrypt.compare(testUser.password, dbUser.password) : false;
   assert('bcrypt.compare() Verifies Original Password Against Database Hash', bcryptMatch);
 
-  // =========================================================================
-  // VISUAL TERMINAL DEMONSTRATION (Matching Reference Interface)
-  // =========================================================================
+  // Restore console logging for visual cards
+  console.log = originalLog;
+  console.error = originalError;
 
   console.log(`\n${colors.cyan}[SYSTEM] Executing full-stack authentication flow against Express + MongoDB...${colors.reset}\n`);
 
