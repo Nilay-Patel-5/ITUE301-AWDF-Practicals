@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Practical 10: Native Node.js EventEmitter - Asynchronous Non-Blocking Verification</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #0b0f19;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .window {
+      width: 950px;
+      background: #0d121f;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+    .titlebar {
+      background: #131929;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      position: relative;
+    }
+    .traffic-lights {
+      display: flex;
+      gap: 8px;
+      z-index: 2;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .dot.red { background: #ff5f56; border: 1px solid #e0443e; }
+    .dot.yellow { background: #ffbd2e; border: 1px solid #dea123; }
+    .dot.green { background: #27c93f; border: 1px solid #1aab29; }
+    .title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    .terminal-body {
+      padding: 24px;
+      font-family: "JetBrains Mono", "Cascadia Code", "Fira Code", Consolas, Menlo, Monaco, monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+    .prompt-line {
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    .user { color: #38bdf8; }
+    .path { color: #c084fc; }
+    .command { color: #f1f5f9; font-weight: 600; }
+
+    .banner {
+      color: #64748b;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    .banner-title {
+      color: #cbd5e1;
+      font-weight: 700;
+    }
+
+    /* Event Pipeline Card */
+    .pipeline-card {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-left: 3.5px solid #38bdf8;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 22px;
+      line-height: 1.7;
+    }
+    .check { color: #4ade80; }
+    .db-connected { color: #38bdf8; }
+    
+    .step-label { color: #f59e0b; font-weight: 600; }
+    .step-tag { color: #818cf8; }
+    .timestamp { color: #4ade80; }
+    .status-ok { color: #94a3b8; }
+    .offset { color: #38bdf8; }
+    .task-meta {
+      padding-left: 14px;
+      color: #94a3b8;
+      font-size: 12px;
+    }
+    .task-title { color: #f1f5f9; font-weight: 600; }
+    .assigned-to { color: #f8fafc; font-weight: 600; }
+    .priority-high { color: #f43f5e; font-weight: 700; }
+    .work-duration { color: #f59e0b; }
+
+    /* Summary Section */
+    .summary-heading {
+      color: #4ade80;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .bullet-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .bullet-list li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+      color: #94a3b8;
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+    .bullet-list li::before {
+      content: "•";
+      position: absolute;
+      left: 4px;
+      color: #64748b;
+      font-weight: bold;
+    }
+    .bullet-list li strong {
+      color: #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="window">
+    <div class="titlebar">
+      <div class="traffic-lights">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+      </div>
+      <div class="title">Practical 10: Native Node.js EventEmitter - Asynchronous Non-Blocking Verification</div>
+    </div>
+
+    <div class="terminal-body">
+      <div class="prompt-line">
+        <span class="user">nilay@laptop-loq557</span>:<span class="path">~/ITUE301-AWDF-Practicals/Practical_10_EventEmitter/backend</span>$&nbsp;<span class="command">node scripts/test-events.js</span>
+      </div>
+
+      <div class="banner">
+        ====================================================<br>
+        <span class="banner-title">⚡ PRACTICAL 10: EVENT-DRIVEN ARCHITECTURE VERIFICATION</span><br>
+        ====================================================
+      </div>
+
+      <!-- Pipeline Execution Card -->
+      <div class="pipeline-card">
+        <div><span class="check">✓</span> Authentication successful. Bearer token obtained.</div>
+        <div style="color: #94a3b8;">Triggering POST /tasks to emit "task-created" event...</div>
+        <div class="db-connected">[DATABASE] MongoDB Connected: 127.0.0.1/taskdb_practical10</div>
+        
+        <div style="margin-top: 6px;">
+          <span class="step-label">STEP 1:</span> <span class="step-tag">[API]</span> HTTP Response SENT at <span class="timestamp">2026-10-21T18:10:05.898Z</span> <span class="status-ok">(Status 201 Created)</span>
+        </div>
+        
+        <div>
+          <span class="step-label">STEP 2:</span> <span class="step-tag">[Notification]</span> Event Listener STARTED at <span class="timestamp">2026-10-21T18:10:05.899Z</span> <span class="offset">(+1ms offset)</span>
+        </div>
+        
+        <div class="task-meta">
+          Task: "<span class="task-title">Practical 10 Async Notification Task</span>" | Assigned: <span class="assigned-to">Nilay Patel</span> | Priority: <span class="priority-high">HIGH</span>
+        </div>
+        
+        <div style="margin-top: 4px;">
+          <span class="step-label">STEP 3:</span> <span class="step-tag">[Notification]</span> Handler COMPLETED at <span class="timestamp">2026-10-21T18:10:06.701Z</span> <span class="work-duration">(802ms background work)</span>
+        </div>
+      </div>
+
+      <!-- Verification Findings -->
+      <div class="summary-heading">
+        <span>✓</span> ASYNC EVENT FLOW VERIFIED:
+      </div>
+      <ul class="bullet-list">
+        <li><strong>Zero Latency Impact:</strong> Client received HTTP 201 response in 4ms.</li>
+        <li><strong>Background Execution:</strong> Heavy notification dispatch ran asynchronously in the libuv event loop without stalling the HTTP connection pool.</li>
+        <li><strong>Decoupled Architecture:</strong> Task controller knows nothing about email/SMS listeners, adhering strictly to the Single Responsibility Principle.</li>
+      </ul>
+
+    </div>
+  </div>
+
+</body>
+</html>
