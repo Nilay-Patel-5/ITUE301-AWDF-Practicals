@@ -29,6 +29,11 @@ const userSchema = new mongoose.Schema(
       required: [true, 'Password is required'],
       minlength: [6, 'Password must be at least 6 characters long'],
       select: false // Do not include in queries by default for safety
+    },
+    role: {
+      type: String,
+      default: 'student',
+      trim: true
     }
   },
   {

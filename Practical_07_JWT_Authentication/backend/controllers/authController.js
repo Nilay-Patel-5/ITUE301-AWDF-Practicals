@@ -10,7 +10,7 @@ const generateToken = (id) => {
 // POST /api/auth/register
 exports.register = async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     // Check if user already exists
     const existing = await User.findOne({ email: email.toLowerCase().trim() });
@@ -25,7 +25,8 @@ exports.register = async (req, res, next) => {
     const user = await User.create({
       name: name.trim(),
       email: email.toLowerCase().trim(),
-      password
+      password,
+      role: role || 'student'
     });
 
     const token = generateToken(user._id);
@@ -35,9 +36,11 @@ exports.register = async (req, res, next) => {
       message: 'User registered successfully',
       token,
       user: {
+        _id: user._id,
         id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: user.role
       }
     });
   } catch (err) {
@@ -75,9 +78,11 @@ exports.login = async (req, res, next) => {
       message: 'Login successful',
       token,
       user: {
+        _id: user._id,
         id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: user.role
       }
     });
   } catch (err) {

@@ -138,7 +138,24 @@ JWT_EXPIRE=1h
 
 ---
 
-## 11. Testing Instructions
+## 11. Testing & Automated Verification Pipeline
+
+### Option A: Automated Test Pipeline (Recommended)
+The repository includes an automated 17-point security test pipeline that spins up an instance, verifies registration, tests JWT generation, verifies protected route access, validates login/rejection logic, directly queries MongoDB WiredTiger storage, and renders the visual terminal cards:
+
+```bash
+# From Practical_07_JWT_Authentication directory:
+node scripts/test-auth-pipeline.js
+
+# Or with Git Bash on Windows 11:
+./scripts/test-auth-pipeline.sh
+
+# Or from backend directory:
+cd backend
+npm run test:auth
+```
+
+### Option B: Manual Step-by-Step API Testing
 1. Run backend (`PORT=5001`) and frontend (`PORT=5173`).
 2. Test protected task endpoint directly via cURL without token:
    ```bash
@@ -147,12 +164,15 @@ JWT_EXPIRE=1h
    Verify: `401 Unauthorized` - *"Access denied. No authentication token provided"*.
 3. Register a new user:
    ```bash
-   curl -X POST http://localhost:5001/api/auth/register      -H "Content-Type: application/json"      -d '{"name":"Nilay","email":"Nilay@test.com","password":"mypassword123"}'
+   curl -X POST http://localhost:5001/api/auth/register \
+        -H "Content-Type: application/json" \
+        -d '{"name":"Nilay Patel","email":"nilay@charusat.edu","password":"mypassword123","role":"student"}'
    ```
    Save the returned `token`.
 4. Access protected tasks using the token:
    ```bash
-   curl http://localhost:5001/tasks      -H "Authorization: Bearer <YOUR_TOKEN>"
+   curl http://localhost:5001/tasks \
+        -H "Authorization: Bearer <YOUR_TOKEN>"
    ```
    Verify: `200 OK` with task array!
 5. In browser at `http://localhost:5173`, click **Sign In / Register**, enter details, and observe your profile appearing in the navbar. Add, edit, and delete tasks seamlessly with JWT authorization.

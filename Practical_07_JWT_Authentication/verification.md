@@ -2,7 +2,7 @@
 
 **Title:** Authentication and Middleware Pipeline  
 **Course:** ITUE301 - Advanced Web Development Frameworks  
-**Student:** Nilay  
+**Student:** Nilay Patel (24CE089)  
 
 | Status | Rubric Item | Implementation Detail |
 | :---: | :--- | :--- |
