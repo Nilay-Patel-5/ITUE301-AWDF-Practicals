@@ -60,7 +60,7 @@ $$	ext{Improvement \%} = rac{3.96	ext{ ms} - 3.53	ext{ ms}}{3.96	ext{ ms}} 	ime
 
 > [!NOTE]
 > **Hardware & Environment Context:**
-> These readings reflect a local development environment where MongoDB runs locally on the macOS loopback interface (`127.0.0.1:27017`) with a 4-document collection already residing in RAM via MongoDB's WiredTiger storage engine.
+> These readings reflect a local development environment where MongoDB runs locally on the Windows loopback interface (`127.0.0.1:27017`) with a 4-document collection already residing in RAM via MongoDB's WiredTiger storage engine.
 > In real-world production deployments with remote database instances (typical network latency 25–100 ms) and larger collections requiring indexing and complex joins, `node-cache` delivers upwards of **90% to 98% reduction** in response times (< 2 ms cached vs 60+ ms uncached).
 
 ---
